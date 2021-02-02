@@ -59,16 +59,7 @@ class test_expressions(unittest.TestCase):
         self.assertEqual(postfix_eval("3.0 5.0 *"), 15.0)
         self.assertEqual(postfix_eval("3.0 2.0 **"), 9.0)
         self.assertEqual(postfix_eval("3.0 1.0 /"), 3.0)
-        with self.assertRaises(ValueError):
-            postfix_eval('3.0 0.0 /')
-        with self.assertRaises(PostfixFormatException):
-            postfix_eval('3.0 1 <<')
-        with self.assertRaises(PostfixFormatException):
-            postfix_eval('3.0 1 >>')
-        with self.assertRaises(PostfixFormatException):
-            postfix_eval('3 1.0 <<')
-        with self.assertRaises(PostfixFormatException):
-            postfix_eval('3 1.0 >>')
+
 
     def test_postfix_eval__negative_floats(self):
         self.assertEqual(postfix_eval("-3.0 5.0 +"), 2.0)
