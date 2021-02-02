@@ -17,6 +17,7 @@ def postfix_eval(input_str):
     operators = ['+', '-', '*', '/', '**', '<<', '>>']
     if input_str == '':
         return ''
+
     #Go through stack
     for char in tokens:
         if char in operators:

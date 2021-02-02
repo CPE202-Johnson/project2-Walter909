@@ -28,6 +28,25 @@ class test_expressions(unittest.TestCase):
         except PostfixFormatException as e:
             self.assertEqual(str(e), "Too many operands")
 
+    def test_postfix_eval_simple(self):
+        self.assertAlmostEqual(postfix_eval("3 2 **"), 9)
+        self.assertAlmostEqual(postfix_eval('2 1 <<'), 4)
+        self.assertAlmostEqual(postfix_eval('2 1 >>'), 1)
+        self.assertAlmostEqual(postfix_eval(''), '')
 
+    def test_postfix_eval_simple_negative(self):
+        self.assertAlmostEqual(postfix_eval("-3 1 /"), -3.0)
+        self.assertAlmostEqual(postfix_eval("-3 3 **"), -27)
+        self.assertAlmostEqual(postfix_eval('-2 1 <<'), -4)
+        self.assertAlmostEqual(postfix_eval('-2 1 >>'), -1)
+
+    def test_postfix_eval_floats(self):
+        self.assertAlmostEqual(postfix_eval("3.0 2.0 **"), 9.0)
+        self.assertAlmostEqual(postfix_eval("3.0 1.0 /"), 3.0)
+        with self.assertRaises(ValueError):
+            with self.assertRaises(PostfixFormatException):
+                postfix_eval('3 1.0 <<')
+            with self.assertRaises(PostfixFormatException):
+                postfix_eval('3 1.0 >>')
 if __name__ == "__main__":
     unittest.main()
