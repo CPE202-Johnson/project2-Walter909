@@ -41,12 +41,21 @@ class test_expressions(unittest.TestCase):
         self.assertAlmostEqual(postfix_eval('-2 1 >>'), -1)
 
     def test_postfix_eval_floats(self):
+        self.assertAlmostEqual(postfix_eval("3.0 5.0 +"), 8.0)
+        self.assertAlmostEqual(postfix_eval("3.0 2.0 -"), 1.0)
+        self.assertAlmostEqual(postfix_eval("3.0 5.0 *"), 15.0)
         self.assertAlmostEqual(postfix_eval("3.0 2.0 **"), 9.0)
         self.assertAlmostEqual(postfix_eval("3.0 1.0 /"), 3.0)
         with self.assertRaises(ValueError):
-            with self.assertRaises(PostfixFormatException):
-                postfix_eval('3 1.0 <<')
-            with self.assertRaises(PostfixFormatException):
-                postfix_eval('3 1.0 >>')
+            postfix_eval('3.0 0.0 /')
+        with self.assertRaises(PostfixFormatException):
+            postfix_eval('3.0 1 <<')
+        with self.assertRaises(PostfixFormatException):
+            postfix_eval('3.0 1 >>')
+        with self.assertRaises(PostfixFormatException):
+            postfix_eval('3 1.0 <<')
+        with self.assertRaises(PostfixFormatException):
+            postfix_eval('3 1.0 >>')
+
 if __name__ == "__main__":
     unittest.main()
