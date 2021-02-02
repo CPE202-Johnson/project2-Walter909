@@ -70,7 +70,6 @@ class test_expressions(unittest.TestCase):
         with self.assertRaises(PostfixFormatException):
             postfix_eval('3 1.0 >>')
 
-
     def test_postfix_eval__negative_floats(self):
         self.assertEqual(postfix_eval("-3.0 5.0 +"), 2.0)
         self.assertEqual(postfix_eval("-3.0 2.0 -"), -5.0)
@@ -95,6 +94,10 @@ class test_expressions(unittest.TestCase):
         self.assertEqual(prefix_to_postfix('+ << 3 4 >> 5 6'), '3 4 << 5 6 >> +')
         self.assertEqual(prefix_to_postfix('** -1 2'), '-1 2 **')
         self.assertEqual(prefix_to_postfix(''), '')
+
+    def test_loop_break(self):
+        with self.assertRaises(IndexError):
+            prefix_to_postfix('e')
 
 if __name__ == "__main__":
     unittest.main()
